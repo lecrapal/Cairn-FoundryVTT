@@ -22,14 +22,17 @@ export class CairnItemSheet extends ItemSheet {
   /** @override */
   get template () {
     const path = 'systems/cairn/templates/item'
-    return `${path}/${this.item.data.type}-sheet.html`
+    return `${path}/${this.item.type}-sheet.html`
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  getData () {
-    return super.getData()
+  async getData(options) {
+    const context = await super.getData(options);
+    context.system = context.item.system;
+    console.log(context);
+    return context;
   }
 
   /* -------------------------------------------- */
@@ -55,7 +58,7 @@ export class CairnItemSheet extends ItemSheet {
 		// Roll handlers, click handlers, etc. would go here.
 
 		// Prevent entering any less than 1 / 1000 of a slot per item.
-		html.find("[name='data.slots']").change((e) => {
+		html.find("[name='slots']").change((e) => {
       const value = parseFloat(e.target.value);
 			if (value !== 0 && value < 0.001) {
 				ui.notifications.error("Slots Value should be 0 or greater than 0.001");

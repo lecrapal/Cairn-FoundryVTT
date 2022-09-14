@@ -8,57 +8,51 @@ export class CairnActor extends Actor {
 	 */
 	prepareData() {
 		super.prepareData();
-		const actorData = this.data; // Not sure actorData is to spec.
-		const data = actorData.data;
-		const flags = actorData.flags;
+		const actor = this; // Not sure actorData is to spec.
 
 		// Make separate methods for each Actor type (character, npc, etc.) to keep
 		// things organized.
-		if (actorData.type === "character") this._prepareCharacterData(actorData);
-		if (actorData.type === "npc") this._prepareNpcData(actorData);
-		if (actorData.type === "container") this._prepareContainerData(actorData);
+		if (actor.type === "character") this._prepareCharacterData(actor);
+		if (actor.type === "npc") this._prepareNpcData(actor);
+		if (actor.type === "container") this._prepareContainerData(actor);
 	}
 
 	/**
 	 * Prepare Character type specific data
 	 */
-	_prepareCharacterData(actorData) {
-		const data = actorData.data;
-
-		data.armor = actorData.items
+	_prepareCharacterData(actor) {
+		actor.system.armor = actor.items
 			.filter((item) => item.type == "armor" || item.type == "item")
-			.map((item) => item.data.data.armor * item.data.data.equipped)
+			.map((item) => item.system.armor * item.system.equipped)
 			.reduce((a, b) => a + b, 0);
 
-		data.slotsUsed = calcSlotsUsed(this.items);
+		actor.system.slotsUsed = calcSlotsUsed(this.items);
 
-		data.encumbered = data.slotsUsed >= 10;
+		actor.system.encumbered = actor.system.slotsUsed >= 10;
 
-		if (data.encumbered) {
-			data.hp.value = 0;
+		if (actor.system.encumbered) {
+			actor.system.hp.value = 0;
 		}
-		if (data.armor > 3) {
-			data.armor = 3;
+		if (actor.system.armor > 3) {
+			actor.system.armor = 3;
 		}
 	}
 
-	_prepareNpcData(actorData) {
-		const data = actorData.data;
+	_prepareNpcData(actor) {
 
-		let itemArmor = actorData.items
+		let itemArmor = actor.items
 			.filter((item) => item.type == "armor" || item.type == "item")
-			.map((item) => item.data.data.armor * item.data.data.equipped)
+			.map((item) => item.system.armor * item.system.equipped)
 			.reduce((a, b) => a + b, 0);
 
-		data.armor = Math.max(itemArmor, data.armor);
-		if (data.armor > 3) {
-			data.armor = 3;
+		actor.system.armor = Math.max(itemArmor, actor.system.armor);
+		if (actor.system.armor > 3) {
+			actor.system.armor = 3;
 		}
 	}
 
 	_prepareContainerData(actorData) {
-		const data = actorData.data;
-		data.slotsUsed = calcSlotsUsed(this.items);
+		actorData.system.slotsUsed = calcSlotsUsed(this.items);
 	}
 
 	/** @override */
@@ -82,11 +76,11 @@ export class CairnActor extends Actor {
 	/** No longer an override as deleteOwnedItem is deprecated on type Actor */
 	deleteOwnedItem(itemId) {
 		const item = this.items.get(itemId);
-		const currentQuantity = item.data.data.quantity;
+		const currentQuantity = item.system.quantity;
 		if (item) {
 			if (currentQuantity > 1) {
 				item.update({
-					"data.quantity": currentQuantity - 1,
+					"system.quantity": currentQuantity - 1,
 				});
 			} else {
 				item.delete();
@@ -100,8 +94,8 @@ export class CairnActor extends Actor {
 function calcSlotsUsed(actorItems) {
   const milliSlots = actorItems
 		.map((item) => {
-			const milliSlots = item.data.data.slots * 1000;
-			const itemSlotPercentage = (item.data.data.quantity || 1) * milliSlots;
+			const milliSlots = item.system.slots * 1000;
+			const itemSlotPercentage = (item.system.quantity || 1) * milliSlots;
 			return Math.trunc(itemSlotPercentage);
 		})
 		.reduce((memo, slots) => memo + slots, 0);

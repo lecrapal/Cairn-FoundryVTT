@@ -5,7 +5,7 @@
 export class CairnActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cairn", "sheet", "actor"],
       template: "systems/cairn/templates/actor/actor-sheet.html",
       width: 480,
@@ -22,21 +22,33 @@ export class CairnActorSheet extends ActorSheet {
 
   get template() {
     const path = "systems/cairn/templates/actor";
-    return `${path}/${this.actor.data.type}-sheet.html`;
+    return `${path}/${this.actor.type}-sheet.html`;
   }
 
   /** @override */
-  getData() {
-    const data = super.getData();
-    data.items = data.items.sort((a, b) =>
-      a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+  async getData(options) {
+
+    // The Actor's data
+    const actorData = this.actor.toObject(false);
+
+    const context = {
+      actor: actorData,
+      system: actorData.system,
+      items: actorData.items,
+      options: this.options,
+    };
+
+    // Ordering items
+    context.items.sort((a, b) =>
+      b.system.equipped - a.system.equipped ||
+      a.name.localeCompare(b.name),
     );
-    return data;
+
+    return context;
   }
 
   /** @override */
   activateListeners(html) {
-    super.activateListeners(html);
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) {
@@ -54,11 +66,7 @@ export class CairnActorSheet extends ActorSheet {
     });
 
     // Delete inventory item
-    html.find(".item-delete").click((ev) => {
-      const li = $(ev.currentTarget).parents(".cairn-items-list-row");
-      this.actor.deleteOwnedItem(li.data("itemId"));
-      li.slideUp(200, () => this.render(false));
-    });
+    html.find(".item-delete").click(this._onItemDelete.bind(this));
 
     html.find(".roll-control").click(this._onRoll.bind(this));
 
@@ -69,23 +77,23 @@ export class CairnActorSheet extends ActorSheet {
     html.find("#rest-button").click(async (ev) => {
       // Someone DEPRIVED of a crucial need (e.g. food,water or warmth) cannot
       // benefit from RESTS
-      if (!this.actor.data.data.deprived) {
+      if (!this.actor.system.deprived) {
         await this.actor.update({
-          "data.hp.value": this.actor.data.data.hp.max,
+          "system.hp.value": this.actor.system.hp.max,
         });
       }
     });
 
     html.find("#restore-abilities-button").click(async (ev) => {
-      if (!this.actor.data.data.deprived) {
+      if (!this.actor.system.deprived) {
         await this.actor.update({
-          "data.abilities.STR.value": this.actor.data.data.abilities.STR.max,
+          "system.abilities.STR.value": this.actor.system.abilities.STR.max,
         });
         await this.actor.update({
-          "data.abilities.DEX.value": this.actor.data.data.abilities.DEX.max,
+          "system.abilities.DEX.value": this.actor.system.abilities.DEX.max,
         });
         await this.actor.update({
-          "data.abilities.WIL.value": this.actor.data.data.abilities.WIL.max,
+          "system.abilities.WIL.value": this.actor.system.abilities.WIL.max,
         });
       }
     });
@@ -101,6 +109,9 @@ export class CairnActorSheet extends ActorSheet {
         flavor: "Die of Fate",
       });
     });
+
+    // Handle default listeners last so system listeners are triggered first
+    super.activateListeners(html);
   }
 
   /* -------------------------------------------- */
@@ -125,9 +136,17 @@ export class CairnActorSheet extends ActorSheet {
       data: data,
     };
     // Remove the type from the dataset since it's in the itemData.type prop.
-    delete itemData.data.type;
+    delete itemData.type;
     // Finally, create the item!
     return this.actor.createOwnedItem(itemData);
+  }
+
+  async _onItemDelete(event) {
+    const li = event.currentTarget.closest(".cairn-items-list-row");
+    const item = this.actor.items.get(li.dataset.itemId);
+    if ( !item ) return;
+    this.render(false);
+    return item.delete();
   }
 
   /**
@@ -140,7 +159,7 @@ export class CairnActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
     if (dataset.roll) {
-      const roll = new Roll(dataset.roll, this.actor.data.data);
+      const roll = new Roll(dataset.roll, this.actor.system);
       const label = dataset.label ? game.i18n.localize("CAIRN.Rolling") + ` ${dataset.label}` : "";
       roll.roll({ async: false }).toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -151,16 +170,16 @@ export class CairnActorSheet extends ActorSheet {
 
   _onItemDescriptionToggle(event) {
     event.preventDefault();
-    const boxItem = $(event.currentTarget).parents(".cairn-items-list-row");
-    const item = this.actor.items.get(boxItem.data("itemId"));
-    if (boxItem.hasClass("expanded")) {
+    const li = event.currentTarget.closest(".cairn-items-list-row");
+    const item = this.actor.items.get(li.dataset.itemId);
+    if (li.hasClass("expanded")) {
       let summary = boxItem.children(".item-description");
       summary.slideUp(200, () => summary.remove());
     } else {
       let div = $(
-        `<div class="item-description">${item.data.data.description}</div>`
+        `<div class="item-description">${item.system.description}</div>`
       );
-      boxItem.append(div.hide());
+      li.append(div.hide());
       div.slideDown(200);
     }
     boxItem.toggleClass("expanded");
@@ -171,7 +190,7 @@ export class CairnActorSheet extends ActorSheet {
     const element = event.currentTarget;
     const dataset = element.dataset;
     if (dataset.roll) {
-      const roll = new Roll(dataset.roll, this.actor.data.data);
+      const roll = new Roll(dataset.roll, this.actor.system);
       const label = dataset.label ? game.i18n.localize("CAIRN.Rolling") + ` ${dataset.label}` : "";
       const rolled = roll.roll({ async: false });
 

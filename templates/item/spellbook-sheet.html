@@ -16,36 +16,39 @@
 
             <div class="grid grid-3col" style="margin-bottom: 0px">
                 <div class="resource flex-group-center">
-                    <label class="resource-label" style="text-align: center">{{ localize 'CAIRN.Equipped' }}</label>
+                    <label class="resource-label" for="system.equipped" style="text-align: center">{{ localize 'CAIRN.Equipped' }}</label>
                     <input
                         class="checkbox-block"
                         type="checkbox"
                         {{checked
-                        data.data.equipped}}
-                        name="data.equipped"
+                        system.equipped}}
+                        name="system.equipped"
+                        id="system.equipped"
                         style="display: inline"
-                        value="{{data.data.equipped}}"
+                        value="{{system.equipped}}"
                         data-dtype="Boolean"/>
                 </div>
 
                 <div class="resource flex-group-center">
-                    <label class="resource-label" style="text-align: center">{{ localize 'CAIRN.Slots' }}</label>
+                    <label class="resource-label" for="system.slots" style="text-align: center">{{ localize 'CAIRN.Slots' }}</label>
                     <input
                         type="text"
-                        name="data.slots"
+                        name="system.slots"
+                        id="system.slots"
                         style="display: inline"
-                        value="{{data.data.slots}}"
+                        value="{{system.slots}}"
                         placeholder=0
                         data-dtype="Number"/>
                 </div>
 
                 <div class="resource flex-group-center">
-                    <label class="resource-label" style="text-align: center">{{ localize 'CAIRN.Quantity' }}</label>
+                    <label class="resource-label" for="system.quantity" style="text-align: center">{{ localize 'CAIRN.Quantity' }}</label>
                     <input
                         type="text"
-                        name="data.data.quantity"
+                        name="system.quantity"
+                        id="system.quantity"
                         style="display: inline"
-                        value="{{data.data.quantity}}"
+                        value="{{system.quantity}}"
                         data-dtype="Number"/>
                 </div>
             </div>
@@ -64,5 +67,5 @@
         </nav>
     </div>
 
-    {{editor content=data.data.description target="data.description" button=true owner=owner editable=editable}}
+    {{ editor system.description target="system.description" button=true owner=owner editable=editable }}
 </form>

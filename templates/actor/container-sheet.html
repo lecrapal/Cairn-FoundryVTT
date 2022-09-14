@@ -8,9 +8,9 @@
             <!-- Background, not relevant for containers -->
             <div class="background-input"></div>
             <div class="resource-counter slots-counter">
-                <label for="data.slots.value">{{ localize 'CAIRN.Slots' }}</label>
+                <label for="system.slots.value">{{ localize 'CAIRN.Slots' }}</label>
                 <div class="resource-input-wrapper">
-                    <input type="text" name="data.slots.value" value="{{data.data.slots.value}}" data-dtype="Number" />
+                    <input type="text" name="system.slots.value" id="system.slots.value" value="{{system.slots.value}}" data-dtype="Number" />
                 </div>
             </div>
         </div>
@@ -24,8 +24,7 @@
                     {{> "systems/cairn/templates/parts/items-list.html" actor=actor}}
                 </div>
                 <div class="tab" data-group="primary" data-tab="description">
-                    {{ editor content=data.data.biography target="data.biography" button=true owner=owner
-                    editable=editable }}
+                    {{ editor system.biography target="system.biography" button=true owner=owner editable=editable }}
                 </div>
             </section>
         </div>

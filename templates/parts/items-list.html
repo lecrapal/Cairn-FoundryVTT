@@ -3,36 +3,36 @@
     <a class="item-control item-create" title="{{ localize 'CAIRN.CreateItem' }}" data-type="item"><i class="fas fa-plus"></i>&nbsp;{{ localize 'CAIRN.AddItem' }}</a>
 </div>
 {{#each actor.items as |item id|}}
-<div class="cairn-items-list-row" data-item-id="{{item.id}}">
+<div class="cairn-items-list-row" data-item-id="{{item._id}}">
     <div class="cairn-items-list-row-header">
         <div class="cairn-item-name-and-tags">
-            {{#if item.data.data.equipped}}
+            {{#if item.system.equipped}}
             <i class="fas fa-hand-paper"></i>
             {{/if}}
             <a class="cairn-item-title">
-                {{item.data.data.quantity}} {{#boldIf
-                item.data.data.equipped}}{{item.name}}{{/boldIf}}
+                {{item.system.quantity}} {{#boldIf
+                item.system.equipped}}{{item.name}}{{/boldIf}}
             </a>
-            {{#if item.data.data.blast}}
+            {{#if item.system.blast}}
             <div class="cairn-item-tag">{{ localize 'CAIRN.Blast' }}</div>
             {{/if}}
-            {{#if item.data.data.armor}}
-            <span class="cairn-item-tag">{{ localize 'CAIRN.Armor' }} {{item.data.data.armor}}</span>
+            {{#if item.system.armor}}
+            <span class="cairn-item-tag">{{ localize 'CAIRN.Armor' }} {{item.system.armor}}</span>
             {{/if}}
-            {{#if item.data.data.damageFormula}}
-            <div class="cairn-item-tag">{{item.data.data.damageFormula}} {{ localize 'CAIRN.Damage' }}</div>
+            {{#if item.system.damageFormula}}
+            <div class="cairn-item-tag">{{item.system.damageFormula}} {{ localize 'CAIRN.Damage' }}</div>
             {{/if}}
-            {{#if item.data.data.bulky}}
+            {{#if item.system.bulky}}
             <div class="cairn-item-tag">{{ localize 'CAIRN.Bulky' }}</div>
             {{/if}}
-            {{#if item.data.data.criticalDamage}}
+            {{#if item.system.criticalDamage}}
             <div class="cairn-item-tag">{{ localize 'CAIRN.CriticalDamage' }}</div>
             {{/if}}
         </div>
         <div class="cairn-item-controls">
-            {{#if item.data.data.equipped}}
-            {{#if item.data.data.damageFormula}}
-            <a class="roll-control" data-label="damage with {{item.name}}" data-roll="{{item.data.data.damageFormula}}"
+            {{#if item.system.equipped}}
+            {{#if item.system.damageFormula}}
+            <a class="roll-control" data-label="damage with {{item.name}}" data-roll="{{item.system.damageFormula}}"
                 title="{{ localize 'CAIRN.RollDamage' }}">
                 <i class="fas fa-dice-d20"></i>
             </a>
