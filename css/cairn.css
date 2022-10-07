@@ -185,6 +185,11 @@
     height: 36px;
 }
 
+.resource-counter.wide {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
 .resource-counter a,
 .resource-counter label {
     background-color: black;
@@ -373,4 +378,36 @@
 .cairn-item-controls .fas {
     line-height: 26px;
 
+}
+
+/******************************************************************************
+ * Weapons                                                                    *
+ ******************************************************************************/
+.weapon .item-sheet-section-portrait{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+
+.weapon .item-sheet-section-tabs {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 7;
+
+    display: grid;
+    grid-template-rows: 36px 1fr;
+}
+
+.weapon .long-counter label {
+    width: 30%;
+}
+
+.weapon .long-counter .resource-input-wrapper {
+    width: 70%;
+}
+
+.weapon .resource-input-wrapper input{
+    text-align: left !important;
 }

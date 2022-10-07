@@ -40,7 +40,9 @@
     "container": {
       "templates": ["base"],
       "description": "",
-      "slots": 0
+      "slots": 0,
+      "equipped": false,
+      "bulky": false
     }
   },
   "Item": {

@@ -27,6 +27,13 @@
       "system": "cairn"
     },
     {
+      "name": "containers",
+      "label": "Containers",
+      "path": "packs/containers.db",
+      "entity": "Actor",
+      "system": "cairn"
+    },
+    {
       "name": "expeditionary-gear",
       "label": "Expeditionary Gear",
       "path": "packs/expeditionary-gear.db",
