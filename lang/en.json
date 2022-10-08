@@ -6,6 +6,9 @@
   "ACTOR.TypeNpc": "Non-Player Character",
   "ACTOR.TypeContainer": "Container",
   "CAIRN.Name": "Name",
+  "CAIRN.Strength": "Strength",
+  "CAIRN.Dexterity": "Dexterity",
+  "CAIRN.Will": "Will",
   "CAIRN.HitProtection": "HP",
   "CAIRN.Background": "Background",
   "CAIRN.Deprived": "Deprived",
@@ -32,5 +35,7 @@
   "CAIRN.AddItem": "Add Item",
   "CAIRN.BoldMeanEquipped": "(bold means equipped)",
   "CAIRN.RollDamage": "Roll Damage",
-  "CAIRN.NoItemToDelete": "Cannot find Item to delete."
+  "CAIRN.NoItemToDelete": "Cannot find Item to delete.",
+  "CAIRN.OwnersItem": "{owner}'s {actor}",
+  "CAIRN.CharacterGeneratorBiography": "I have a <strong>{physique}</strong> physique, <strong>{skin}</strong> skin, <strong>{hair}</strong> hair, and a <strong>{face}</strong> face. I speak in a <strong>{speech}</strong> manner and wear <strong>{clothing}</strong> clothing. I am <strong>{vice}</strong> yet <strong>{virtue}</strong>, and I am generally regarded as <strong>{reputation}</strong>. I have had the misfortune of being <strong>{misfortune}</strong>. I am <strong>{age}</strong> years old."
 }

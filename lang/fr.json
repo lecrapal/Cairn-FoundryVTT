@@ -6,9 +6,9 @@
   "ACTOR.TypeNpc": "Personnage Non Joueur",
   "ACTOR.TypeContainer": "Contenant",
   "CAIRN.Name": "Nom",
-  "CAIRN.HitProtection": "END",
+  "CAIRN.HitProtection": "PV",
   "CAIRN.Background": "Historique",
-  "CAIRN.Deprived": "En privation",
+  "CAIRN.Deprived": "Épuisé",
   "CAIRN.Rest": "Repos",
   "CAIRN.RestoreAbilities": "Récup. compétences",
   "CAIRN.DieOfFate": "Dé du Destin",
@@ -34,5 +34,7 @@
   "CAIRN.AddItem": "Ajouter un objet",
   "CAIRN.BoldMeanEquipped": "(équipé en gras)",
   "CAIRN.RollDamage": "Jet de dégâts",
-  "CAIRN.NoItemToDelete": "Aucun objet à supprimer."
+  "CAIRN.NoItemToDelete": "Aucun objet à supprimer.",
+  "CAIRN.OwnersItem": "{actor} de {owner}",
+  "CAIRN.CharacterGeneratorBiography": "J'ai un physique <strong>{physique}</strong>, la peau <strong>{skin}</strong>, <strong>{hair}</strong>, et un visage <strong>{face}</strong>. Je parle <strong>{speech}</strong> et porte des vêtements <strong>{clothing}</strong>. Je suis <strong>{vice}</strong> mais <strong>{virtue}</strong> et suis généralement considéré(e) comme <strong>{reputation}</strong>. J'ai eu la malchance d'avoir été <strong>{misfortune}</strong>.'"
 }
