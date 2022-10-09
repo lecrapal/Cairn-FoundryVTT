@@ -9,7 +9,7 @@
             <input class="name-input" type="text" name="name" value="{{item.name}}" placeholder="{{ localize 'CAIRN.Name' }}" />
         </div>
         <!-- Equipped -->
-        <div class="resource-counter long-counter">
+        <div class="resource-counter">
             <label class="large-resource-label" for="system.equipped">{{ localize 'CAIRN.Equipped' }}</label>
             <div class="resource-input-wrapper">
                 <input type="checkbox" {{checked system.equipped}} name="system.equipped" id="system.equipped"
@@ -17,7 +17,7 @@
             </div>
         </div>
         <!-- Blast -->
-        <div class="resource-counter long-counter">
+        <div class="resource-counter">
             <label class="large-resource-label" for="system.blast">{{ localize 'CAIRN.Blast' }}</label>
             <div class="resource-input-wrapper">
                 <input type="checkbox" {{checked system.blast}} name="system.blast" id="system.blast" value="{{system.blast}}"
@@ -25,14 +25,14 @@
             </div>
         </div>
         <!-- Slots -->
-        <div class="resource-counter long-counter">
+        <div class="resource-counter">
             <label class="large-resource-label" for="system.slots">{{ localize 'CAIRN.Slots' }}</label>
             <div class="resource-input-wrapper">
                 <input type="text" name="system.slots" id="system.slots" value="{{system.slots}}" placeholder=0 data-dtype="Number" />
             </div>
         </div>
         <!-- Damage -->
-        <div class="resource-counter long-counter">
+        <div class="resource-counter">
             <label class="large-resource-label" for="system.damageFormula">{{ localize 'CAIRN.Damage' }}</label>
             <div class="resource-input-wrapper">
                 <input type="text" name="system.damageFormula" id="system.damageFormula" value="{{system.damageFormula}}" data-dtype="String" />

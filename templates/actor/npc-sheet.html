@@ -41,8 +41,12 @@
         </div>
         <!-- Armor and gold, not relevant for NPCs -->
         <div class="character-sheet-section-others">
-            <div></div>
-            <div></div>
+            <div class="resource-counter stacked-counter">
+                <label>{{ localize 'CAIRN.Armor' }}</label>
+                <div class="stacked-input-wrapper">
+                    <span>{{system.armor}}</span>
+                </div>
+            </div>
         </div>
         <div class="character-sheet-section-tabs">
             <nav class="tabs" data-group="primary">

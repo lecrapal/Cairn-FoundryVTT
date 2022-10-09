@@ -9,7 +9,7 @@ export class CairnActorSheet extends ActorSheet {
       classes: ["cairn", "sheet", "actor"],
       template: "systems/cairn/templates/actor/actor-sheet.html",
       width: 480,
-      height: 480,
+      height: 550,
       tabs: [
         {
           navSelector: ".tabs",
@@ -123,6 +123,7 @@ export class CairnActorSheet extends ActorSheet {
   _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
+    console.log(header)
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
@@ -135,8 +136,6 @@ export class CairnActorSheet extends ActorSheet {
       type: type,
       data: data,
     };
-    // Remove the type from the dataset since it's in the itemData.type prop.
-    delete itemData.type;
     // Finally, create the item!
     return this.actor.createOwnedItem(itemData);
   }
@@ -170,19 +169,19 @@ export class CairnActorSheet extends ActorSheet {
 
   _onItemDescriptionToggle(event) {
     event.preventDefault();
-    const li = event.currentTarget.closest(".cairn-items-list-row");
+    const li = event.currentTarget.closest('.cairn-items-list-row');
     const item = this.actor.items.get(li.dataset.itemId);
-    if (li.hasClass("expanded")) {
-      let summary = boxItem.children(".item-description");
+    if ($(li).hasClass("expanded")) {
+      let summary = $(li).children(".item-description");
       summary.slideUp(200, () => summary.remove());
     } else {
       let div = $(
         `<div class="item-description">${item.system.description}</div>`
       );
-      li.append(div.hide());
-      div.slideDown(200);
+      $(li).append(div.hide());
+      $(div).slideDown(200);
     }
-    boxItem.toggleClass("expanded");
+    $(li).toggleClass("expanded");
   }
 
   _onRollAbility(event) {

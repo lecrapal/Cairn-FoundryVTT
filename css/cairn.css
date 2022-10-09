@@ -190,6 +190,17 @@
     grid-column-end: 4;
 }
 
+.resource-counter.crit-dmg {
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
+.resource-counter label {
+    width: 50%;
+}
+.resource-counter.stacked-counter label {
+    width: 100%;
+}
 .resource-counter a,
 .resource-counter label {
     background-color: black;
@@ -203,6 +214,7 @@
 
 .resource-input-wrapper {
     display: flex;
+    width: 50%;
 }
 
 .resource-input-wrapper input {
@@ -255,11 +267,13 @@
 }
 
 /******************************************************************************
- * Specific resources counters style.                                         * 
+ * Specific resources counters style.                                         *
  ******************************************************************************/
 
 .hp-counter label,
 .slots-counter label,
+.equipped-counter label,
+.bulky-counter label,
 .STR-counter a,
 .DEX-counter a,
 .WIL-counter a {
@@ -270,21 +284,25 @@
 .slots-counter .resource-input-wrapper,
 .STR-counter .resource-input-wrapper,
 .DEX-counter .resource-input-wrapper,
-.WIL-counter .resource-input-wrapper {
+.WIL-counter .resource-input-wrapper,
+.equipped-counter .resource-input-wrapper,
+.bulky-counter .resource-input-wrapper {
     width: 50%;
 }
 
 .long-counter label {
-    width: 70%;
+    width: 30%;
 }
 
 .long-counter .resource-input-wrapper {
-    width: 30%;
+    width: 70%;
 }
 
 .hp-counter,
 .deprived-counter,
-.slots-counter {
+.slots-counter,
+.equipped-counter,
+.bulky-counter{
     align-self: end;
 }
 
@@ -381,6 +399,13 @@
 }
 
 /******************************************************************************
+ * Containers                                                                    *
+ ******************************************************************************/
+.container-sheet-grid .character-sheet-section-name {
+    grid-template-rows: 46px 46px 46px;
+}
+
+/******************************************************************************
  * Weapons                                                                    *
  ******************************************************************************/
 .weapon .item-sheet-section-portrait{
@@ -400,11 +425,11 @@
     grid-template-rows: 36px 1fr;
 }
 
-.weapon .long-counter label {
+.weapon .long-counter.wide label {
     width: 30%;
 }
 
-.weapon .long-counter .resource-input-wrapper {
+.weapon .long-counter.wide .resource-input-wrapper {
     width: 70%;
 }
 

@@ -28,18 +28,18 @@ Please note that the directory needs to be named `cairn` in order to be properly
 ### FoundryVTT v10 compatible
 
 * Generate Character Macro compatible v10
-* Item sheet compatible v10
-* Actor sheet compatible v10
+* Items & Actors sheet compatible v10
 
 ### Generate Character Macro rebuild
 
-* No need to import compendiums to use Generate Character Macro, it takes data from compendiums
-* Use the same random tables as SRD
+* No need to import compendiums to use Generate Character Macro, it uses directly the compendiums
+* Use the same random tables as SRD to create a character
 
 ### Actor Sheet Features
 
 * Items ordered by equipped/not equipped and alphabetical order
 * Default HP set to 6 (not 10)
+* NPC Sheet shows Armor
 
 ### Containers
 
